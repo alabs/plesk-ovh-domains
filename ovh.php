@@ -177,6 +177,7 @@ class OVH extends Registrar
 			$this->OVH->resellerDomainTransfer(
 				$this->sesion, 
 				$dominio, 
+				$this->input['domainAccessPassword'],
 				$this->config['DOM_HOSTING'], 
 				$this->config['DOM_OFFER'], 
 				$this->config['DOM_PROFILE'], 
