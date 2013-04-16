@@ -198,7 +198,7 @@ class OVH extends Registrar
 
 			$this->finSoap();	
 
-			return todoBien($dominio);
+			return $this->todoBien($dominio);
 		} catch (SoapFault $error) {
 			return $this->registrarError($dominio, 'Error al conectar con SOAP al tratar de transferir un dominio');
 		}
