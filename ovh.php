@@ -150,7 +150,7 @@ class OVH extends Registrar
 				$this->commandStatus = self::ACTION_STATUS_COMPLETED;			
 			}
 			$this->finSoap();
-			return todoBien($dominio);
+			return $this->todoBien($dominio);
 		} catch (SoapFault $error) {
 			return $this->registrarError($dominio, 'Error al conectar con SOAP al tratar de registrar un dominio');
 		}
@@ -193,7 +193,7 @@ class OVH extends Registrar
 				'','','','','','','', //$legalName, $legalNumber, $afnicIdent, $birthDate, $birthCity, $birthDepartement, $birthCountry, 
 				$this->modo_test);
 
-			// resellerDomainCreate no devuelve nada. Así que sólo podemos asumir que ha sido correcta
+			// resellerDomainTransfer no devuelve nada. Así que sólo podemos asumir que ha sido correcta
 			$this->commandStatus = self::ACTION_STATUS_COMPLETED;
 
 			$this->finSoap();	
