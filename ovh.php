@@ -128,7 +128,7 @@ class OVH extends Registrar
 				return $this->registraError ($dominio, 'Llegas tarde: '.$dominio.' ya estaba registrado');
 			} else {
 				// El dominio está libre. Procedemos al registro
-				$OVH->resellerDomainCreate(
+				$this->OVH->resellerDomainCreate(
 					$sesion, 
 					$dominio, 
 					$this->config['DOM_HOSTING'], 
@@ -160,7 +160,7 @@ class OVH extends Registrar
 		$this->iniciarSoap();
 		try {	
 			$dominio = $this->input['domainSLD'].'.'.$this->input['domainTLD'];
-			$OVH->resellerDomainRenew($this->sesion, $dominio, $this->modo_test);
+			$this->OVH->resellerDomainRenew($this->sesion, $dominio, $this->modo_test);
 			$this->finSoap();
 			return $this->todoBien($dominio);
 		} catch (SoapFault $error) {
@@ -174,7 +174,7 @@ class OVH extends Registrar
 			$dominio = $this->input['domainSLD'].'.'.$this->input['domainTLD'];
 			$usuario = $this->config['USUARIO_OVH'];
 
-			$OVH->resellerDomainTransfer(
+			$this->OVH->resellerDomainTransfer(
 				$sesion, 
 				$dominio, 
 				$this->config['DOM_HOSTING'], 
