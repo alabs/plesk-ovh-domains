@@ -129,7 +129,7 @@ class OVH extends Registrar
 			} else {
 				// El dominio está libre. Procedemos al registro
 				$this->OVH->resellerDomainCreate(
-					$sesion, 
+					$this->sesion, 
 					$dominio, 
 					$this->config['DOM_HOSTING'], 
 					$this->config['DOM_OFFER'], 
@@ -175,7 +175,7 @@ class OVH extends Registrar
 			$usuario = $this->config['USUARIO_OVH'];
 
 			$this->OVH->resellerDomainTransfer(
-				$sesion, 
+				$this->sesion, 
 				$dominio, 
 				$this->config['DOM_HOSTING'], 
 				$this->config['DOM_OFFER'], 
