@@ -22,7 +22,7 @@ class OVH extends Registrar
 	private static $moduleCapabilities = array(
 		REGISTRAR_REGISTERDOMAIN => 1,
 		REGISTRAR_RENEWDOMAIN => 1,
-		REGISTAR_TRANSFERDOMAIN => 1
+		REGISTRAR_TRANSFERDOMAIN => 1
 	);
 
 	public function getModuleInfo() {
@@ -116,7 +116,7 @@ class OVH extends Registrar
 		return $this->xmlData;
 	}
 
-    public function registerDomain() {
+	public function registerDomain() {
 		try {
 			$dominio = $this->input['domainSLD'].'.'.$this->input['domainTLD'];
 			$usuario = $this->config['USUARIO_OVH'];
