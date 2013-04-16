@@ -209,7 +209,7 @@ class OVH extends Registrar
 	}
 
 	function __destruct() {
-		parent::__destruct();
+		//parent::__destruct();
 		$this->OVH->logout($this->sesion);
 	}
 
