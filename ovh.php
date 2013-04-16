@@ -117,6 +117,7 @@ class OVH extends Registrar
 	}
 
 	public function registerDomain() {
+		$this->iniciarSoap();
 		try {
 			$dominio = $this->input['domainSLD'].'.'.$this->input['domainTLD'];
 			$usuario = $this->config['USUARIO_OVH'];
@@ -148,6 +149,7 @@ class OVH extends Registrar
 				// resellerDomainCreate no devuelve nada. Así que sólo podemos asumir que ha sido correcta
 				$this->commandStatus = self::ACTION_STATUS_COMPLETED;			
 			}
+			$this->finSoap();
 			return todoBien($dominio);
 		} catch (SoapFault $error) {
 			return $this->registrarError($dominio, 'Error en la conexión con SOAP');
@@ -155,9 +157,11 @@ class OVH extends Registrar
     }
 
 	public function renewDomain() {
+		$this->iniciarSoap();
 		try {	
 			$dominio = $this->input['domainSLD'].'.'.$this->input['domainTLD'];
 			$OVH->resellerDomainRenew($this->sesion, $dominio, $this->modo_test);
+			$this->finSoap();
 			return $this->todoBien($dominio);
 		} catch (SoapFault $error) {
 			return $this->registrarError($dominio, 'Error en la conexión con SOAP');
@@ -165,6 +169,7 @@ class OVH extends Registrar
 	}
 
 	public function transferDomain() {
+		$this->iniciarSoap();
 		try {
 			$dominio = $this->input['domainSLD'].'.'.$this->input['domainTLD'];
 			$usuario = $this->config['USUARIO_OVH'];
@@ -188,7 +193,9 @@ class OVH extends Registrar
 				$this->modo_test);
 
 			// resellerDomainCreate no devuelve nada. Así que sólo podemos asumir que ha sido correcta
-			$this->commandStatus = self::ACTION_STATUS_COMPLETED;			
+			$this->commandStatus = self::ACTION_STATUS_COMPLETED;
+
+			$this->finSoap();	
 
 			return todoBien($dominio);
 		} catch (SoapFault $error) {
@@ -196,7 +203,22 @@ class OVH extends Registrar
 		}
 	}
 
-	function __construct()  {
+	private function iniciarSoap() {
+		try {
+			$this->OVH = new SoapClient('https://www.ovh.com/soapi/soapi-re-1.58.wsdl');
+			$this->sesion = $this->OVH->login($this->config['USUARIO_OVH'], $this->config['PASSWD_OVH'], 'es', false);
+			$this->modo_test=FALSE;
+			if ($this->config['DOM_MODO_TEST']) $this->modo_test=TRUE;
+		} catch (SoapFault $error) {
+			return $this->registrarError('', 'Error en la conexión con SOAP');
+		}
+	}
+
+	private function finSoap() {
+		$this->OVH->logout($this->sesion);
+	}
+
+	/*function __construct()  {
 		parent::__construct();
 		try {
 			$this->OVH = new SoapClient('https://www.ovh.com/soapi/soapi-re-1.58.wsdl');
@@ -211,6 +233,6 @@ class OVH extends Registrar
 	function __destruct() {
 		//parent::__destruct();
 		$this->OVH->logout($this->sesion);
-	}
+	}*/
 
 }
