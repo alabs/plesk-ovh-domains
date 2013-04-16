@@ -152,7 +152,7 @@ class OVH extends Registrar
 			$this->finSoap();
 			return todoBien($dominio);
 		} catch (SoapFault $error) {
-			return $this->registrarError($dominio, 'Error en la conexión con SOAP');
+			return $this->registrarError($dominio, 'Error al conectar con SOAP al tratar de registrar un dominio');
 		}
     }
 
@@ -164,7 +164,7 @@ class OVH extends Registrar
 			$this->finSoap();
 			return $this->todoBien($dominio);
 		} catch (SoapFault $error) {
-			return $this->registrarError($dominio, 'Error en la conexión con SOAP');
+			return $this->registrarError($dominio, 'Error al conectar con SOAP al tratar de renovar un dominio');
 		}
 	}
 
@@ -199,7 +199,7 @@ class OVH extends Registrar
 
 			return todoBien($dominio);
 		} catch (SoapFault $error) {
-			return $this->registrarError($dominio, 'Error en la conexión con SOAP');
+			return $this->registrarError($dominio, 'Error al conectar con SOAP al tratar de transferir un dominio');
 		}
 	}
 
@@ -210,7 +210,7 @@ class OVH extends Registrar
 			$this->modo_test=FALSE;
 			if ($this->config['DOM_MODO_TEST']) $this->modo_test=TRUE;
 		} catch (SoapFault $error) {
-			return $this->registrarError('', 'Error en la conexión con SOAP');
+			return $this->registrarError('', 'Error al conectar con SOAP');
 		}
 	}
 
