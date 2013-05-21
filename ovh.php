@@ -206,7 +206,7 @@ class OVH extends Registrar
 
 	private function iniciarSoap() {
 		try {
-			$this->OVH = new SoapClient('https://www.ovh.com/soapi/soapi-re-1.58.wsdl');
+			$this->OVH = new SoapClient('https://www.ovh.com/soapi/soapi-re-1.59.wsdl');
 			$this->sesion = $this->OVH->login($this->config['USUARIO_OVH'], $this->config['PASSWD_OVH'], 'es', false);
 			$this->modo_test=FALSE;
 			if ($this->config['DOM_MODO_TEST']) $this->modo_test=TRUE;
